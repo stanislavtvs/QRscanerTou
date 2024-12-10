@@ -27,15 +27,17 @@ const data = {
     "tou.edu.kz": {
         "domain":"tou.edu.kz",
         "placeQrCod":"login-form",
+        "typePlaceQrCod": "id",
         "Url":"/student_cabinet/",
         "Redirect":"/student_cabinet/"
     },
     "dot.tou.edu.kz": {
         "domain":"dot.tou.edu.kz",
         "placeQrCod":"form",
+        "typePlaceQrCod": "id",
         "Url":"/login",
         "Redirect":"/courses"
-    }
+    },
 }
 const availableDomains = ["tou.edu.kz", "dot.tou.edu.kz"];
 const url = window.location;
@@ -43,6 +45,7 @@ const domain = url.hostname;
 const word = "auth";
 const token = document.getElementsByName('_token');
 var dataForm;
+var loginForm;
 
 
 
@@ -50,7 +53,14 @@ if (availableDomains.includes(domain)) {
 
     const parameters = data[domain]
 
-    const loginForm = document.getElementById(parameters.placeQrCod);
+    if (parameters.typePlaceQrCod == "id") {
+        loginForm = document.getElementById(parameters.placeQrCod);
+    }
+    else if (parameters.typePlaceQrCod == "class") {
+        loginForm = document.querySelector("."+parameters.placeQrCod);
+    }
+
+    
     
     if (loginForm) {
     
